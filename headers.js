@@ -4,6 +4,7 @@ addEventListener('fetch', event => {
 
 let remove_headers = [
   "age",
+  "expires",
   "via",
   "x-cache",
   "x-cache-hits",

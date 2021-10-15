@@ -6,6 +6,7 @@ class ElementHandler {
 
 let remove_headers = [
   "age",
+  "expires",
   "via",
   "x-cache",
   "x-cache-hits",
