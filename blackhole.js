@@ -49,7 +49,7 @@ async function handle_req(request) {
 
     remove_headers.forEach(function(name){
       new_headers.delete(name)
-	  })
+    })
 
     // This causes the worker to error, not sure why
     // if (content_type.startsWith("text/html")) {
