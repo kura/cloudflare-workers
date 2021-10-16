@@ -5,7 +5,7 @@ async function handle_request(request) {
 
   return new Response(picked_pokemon, {
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "text/plain; charset=UTF-8",
       "Access-Control-Allow-Headers": "Origin,Range,Accept-Encoding,Referer",
       "Access-Control-Expose-Headers": "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location",
       "Access-Control-Allow-Methods": "GET,HEAD",
