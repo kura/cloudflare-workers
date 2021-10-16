@@ -17,7 +17,7 @@ async function handle_request(request) {
   let response = await fetch(request)
   let new_headers = new Headers(response.headers)
   new_headers.set("Access-Control-Allow-Headers", "Origin,Range,Accept-Encoding,Referer")
-  new_headers.set("Access-Control-Expose-Headers", "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location")
+  new_headers.set("Access-Control-Expose-Headers", "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location,Link")
   new_headers.set("Access-Control-Allow-Methods", "GET,HEAD")
   new_headers.set("Access-Control-Allow-Origin", "https://kura.gg")
   new_headers.set("Access-Control-Max-Age", "86400")
@@ -29,6 +29,7 @@ async function handle_request(request) {
   new_headers.set("Content-Security-Policy", "default-src 'self'; script-src 'self' a.disquscdn.com disqus.com syslogtv.disqus.com gist.github.com; style-src 'self' assets-cdn.github.com netdna.bootstrapcdn.com a.disquscdn.com; img-src 'self' referrer.disqus.com a.disquscdn.com img.shields.io; font-src 'self' data: netdna.bootstrapcdn.com; connect-src 'none'; media-src 'self'; object-src 'self' player.vimeo.com; child-src www.youtube.com player.vimeo.com disqus.com; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; base-uri https://kura.gg; manifest-src 'none';")
   new_headers.set("X-Clacks-Overhead", "GNU Terry Pratchett")
   new_headers.set("X-Pokemon",  pokemon[(Math.random() * pokemon.length | 0)])
+  new_headers.set("Link", "</theme/css/eevee.min.css>; rel=prefetch, </theme/js/eevee.min.js>; rel=prefetch")
 
   remove_headers.forEach(function(name){
     new_headers.delete(name)
