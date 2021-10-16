@@ -7,7 +7,7 @@ async function handle_request(request) {
     headers: {
       "Content-Type": "text/plain",
       "Access-Control-Allow-Headers": "Origin,Range,Accept-Encoding,Referer",
-      "Access-Control-Expose-Headers": "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location,",
+      "Access-Control-Expose-Headers": "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location",
       "Access-Control-Allow-Methods": "GET,HEAD",
       "Access-Control-Allow-Origin": "https://aliaskura.xyz",
       "Access-Control-Max-Age": "86400",
