@@ -14,35 +14,75 @@ let remove_headers = [
   "x-timer"
 ]
 
-async function handle_request(request) {
-  let response = await fetch(request)
-  let new_headers = new Headers(response.headers)
+let content_security_policy = [
+  "default-src 'self';",
+  "script-src 'self' a.disquscdn.com disqus.com syslogtv.disqus.com gist.github.com;",
+  "style-src 'self' assets-cdn.github.com netdna.bootstrapcdn.com a.disquscdn.com;",
+  "img-src 'self' referrer.disqus.com a.disquscdn.com img.shields.io;",
+  "font-src 'self' data: netdna.bootstrapcdn.com;",
+  "connect-src 'none'; media-src 'self'; object-src 'self' player.vimeo.com;",
+  "child-src www.youtube.com player.vimeo.com disqus.com;",
+  "frame-ancestors 'none';",
+  "form-action 'none';",
+  "upgrade-insecure-requests;",
+  "base-uri https://kura.gg;",
+  "manifest-src 'none';"
+].join(" ")
+
+let privacy_policy = [
+  "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),",
+  "microphone=(), payment=(), usb=(), interest-cohort=()"
+].join(" ")
+
+let new_headers = [
+  ["Access-Control-Allow-Headers", "Origin,Range,Accept-Encoding,Referer"],
+  ["Access-Control-Expose-Headers", "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location"],
+  ["Access-Control-Allow-Methods", "GET,HEAD"],
+  ["Access-Control-Allow-Origin", "https://kura.gg"],
+  ["Access-Control-Max-Age", "86400"],
+  ["X-Frame-Options", "DENY"],
+  ["X-Content-Type-Options", "nosniff"],
+  ["X-Xss-Protection", "1; mode=block"],
+  ["Referrer-Policy", "strict-origin-when-cross-origin"],
+  ["Permissions-Policy", privacy_policy],
+  ["Content-Security-Policy", content_security_policy],
+  ["X-Clacks-Overhead", "GNU Terry Pratchett"],
+  ["X-Pokemon", pokemon[(Math.random() * pokemon.length | 0)]]
+]
+
+async function handle_req(request) {
+  let url = new URL(request.url)
+
+  if (url.pathname == "/blackhole" || url.pathname == "/blackhole/") {
+    return Response.redirect("https://kura.gg/blackhole/index.html", 301)
+  }
+
+  let req_url = url
+  if (url.pathname.startsWith("/blackhole")) {
+    let req_url = url.toString().replace(
+      "https://kura.gg/blackhole",
+      "https://kura.github.io/blackhole"
+    )
+  }
+
+  let res = await fetch(req_url)
+  let res_headers = new Headers(res.headers)
 
   remove_headers.forEach(function(name){
-    new_headers.delete(name)
+    res_headers.delete(name)
   })
 
-  new_headers.set("Access-Control-Allow-Headers", "Origin,Range,Accept-Encoding,Referer")
-  new_headers.set("Access-Control-Expose-Headers", "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location")
-  new_headers.set("Access-Control-Allow-Methods", "GET,HEAD")
-  new_headers.set("Access-Control-Allow-Origin", "https://kura.gg")
-  new_headers.set("Access-Control-Max-Age", "86400")
-  new_headers.set("X-Frame-Options", "DENY")
-  new_headers.set("X-Content-Type-Options", "nosniff")
-  new_headers.set("X-Xss-Protection", "1; mode=block")
-  new_headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
-  new_headers.set("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()")
-  new_headers.set("Content-Security-Policy", "default-src 'self'; script-src 'self' a.disquscdn.com disqus.com syslogtv.disqus.com gist.github.com; style-src 'self' assets-cdn.github.com netdna.bootstrapcdn.com a.disquscdn.com; img-src 'self' referrer.disqus.com a.disquscdn.com img.shields.io; font-src 'self' data: netdna.bootstrapcdn.com; connect-src 'none'; media-src 'self'; object-src 'self' player.vimeo.com; child-src www.youtube.com player.vimeo.com disqus.com; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; base-uri https://kura.gg; manifest-src 'none';")
-  new_headers.set("X-Clacks-Overhead", "GNU Terry Pratchett")
-  new_headers.set("X-Pokemon",  pokemon[(Math.random() * pokemon.length | 0)])
+  new_headers.forEach(function(h) {
+    res_headers.set(h[0], h[1])
+  })
 
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: new_headers
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers: res_headers
   })
 }
 
 addEventListener('fetch', event => {
-  event.respondWith(handle_request(event.request))
+  event.respondWith(handle_req(event.request))
 })
