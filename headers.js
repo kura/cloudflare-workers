@@ -60,10 +60,10 @@ let privacy_policy = [
 ].join(" ")
 
 let report_uri = [
-    "{'group': 'default',",
-    "'max_age': 31536000,",
-    "'endpoints': [{'url': 'https://kuragg.report-uri.com/a/d/g'}],",
-    "'include_subdomains': true}"
+  "{'group': 'default',",
+  "'max_age': 31536000,",
+  "'endpoints': [{'url': 'https://kuragg.report-uri.com/a/d/g'}],",
+  "'include_subdomains': true}"
 ].join(" ")
 
 let new_headers = [
