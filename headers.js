@@ -7,13 +7,10 @@ let remove_headers = [
   "x-cache",
   "x-cache-hits",
   "x-fastly-request-id",
-  "x-frame-options",
   "x-github-request-id",
   "x-proxy-cache",
   "x-served-by",
   "x-timer",
-  "expect-ct",
-  "nel"
 ]
 
 let content_security_policy = [
@@ -32,7 +29,8 @@ let content_security_policy = [
   "base-uri https://kura.gg;",
   "manifest-src 'none';",
   "require-trusted-types-for 'script';",
-  "report-uri https://kuragg.report-uri.com/r/d/csp/enforce; report-to default"
+  "report-uri https://kuragg.report-uri.com/r/d/csp/enforce;",
+  "report-to default"
 ].join(" ")
 
 let content_security_policy_report_only = [
@@ -51,7 +49,8 @@ let content_security_policy_report_only = [
   "base-uri https://kura.gg;",
   "manifest-src 'none';",
   "require-trusted-types-for 'script';",
-  "report-uri https://kuragg.report-uri.com/r/d/csp/reportOnly; report-to default"
+  "report-uri https://kuragg.report-uri.com/r/d/csp/reportOnly;",
+  "report-to default"
 ].join(" ")
 
 let privacy_policy = [
@@ -109,6 +108,7 @@ async function handle_req(request) {
 
   new_headers.forEach(function(h) {
     let [k, v] = h
+    res_headers.delete(k)
     res_headers.set(k, v)
   })
 
