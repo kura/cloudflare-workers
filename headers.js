@@ -31,6 +31,7 @@ let content_security_policy = [
   "upgrade-insecure-requests;",
   "base-uri https://kura.gg;",
   "manifest-src 'none';",
+  "require-trusted-types-for 'script';",
   "report-uri https://kuragg.report-uri.com/r/d/csp/enforce; report-to default"
 ].join(" ")
 
@@ -49,6 +50,7 @@ let content_security_policy_report_only = [
   "upgrade-insecure-requests;",
   "base-uri https://kura.gg;",
   "manifest-src 'none';",
+  "require-trusted-types-for 'script';",
   "report-uri https://kuragg.report-uri.com/r/d/csp/reportOnly; report-to default"
 ].join(" ")
 
