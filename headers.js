@@ -11,7 +11,9 @@ let remove_headers = [
   "x-github-request-id",
   "x-proxy-cache",
   "x-served-by",
-  "x-timer"
+  "x-timer",
+  "expect-ct",
+  "nel"
 ]
 
 let content_security_policy = [
@@ -26,12 +28,20 @@ let content_security_policy = [
   "form-action 'none';",
   "upgrade-insecure-requests;",
   "base-uri https://kura.gg;",
-  "manifest-src 'none';"
+  "manifest-src 'none';",
+  "report-uri https://kuragg.report-uri.com/r/d/csp/enforce; report-to default"
 ].join(" ")
 
 let privacy_policy = [
   "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(),",
   "microphone=(), payment=(), usb=(), interest-cohort=()"
+].join(" ")
+
+let report_uri = [
+    "{'group': 'default',",
+    "'max_age': 31536000,",
+    "'endpoints': [{'url': 'https://kuragg.report-uri.com/a/d/g'}],",
+    "'include_subdomains': true}"
 ].join(" ")
 
 let new_headers = [
@@ -46,13 +56,16 @@ let new_headers = [
   ["Referrer-Policy", "strict-origin-when-cross-origin"],
   ["Permissions-Policy", privacy_policy],
   ["Content-Security-Policy", content_security_policy],
+  ["Expect-CT", "max-age=3600, report-uri='https://kuragg.report-uri.com/r/d/ct/enforce'"],
+  ["Report-To", report_uri],
+  ["NEL", "{'report_to': 'default', 'max_age': 31536000, 'include_subdomains': true}"],
   ["X-Clacks-Overhead", "GNU Terry Pratchett"],
   ["X-Pokemon", pokemon[(Math.random() * pokemon.length | 0)]]
 ]
 
 async function handle_req(request) {
   let url = new URL(request.url)
-
+  
   if (url.pathname == "/blackhole" || url.pathname == "/blackhole/") {
     return Response.redirect("https://kura.gg/blackhole/index.html", 301)
   }
@@ -64,7 +77,6 @@ async function handle_req(request) {
       "https://kura.github.io/blackhole"
     )
   }
-
   let res = await fetch(req_url)
   let res_headers = new Headers(res.headers)
 
@@ -73,7 +85,8 @@ async function handle_req(request) {
   })
 
   new_headers.forEach(function(h) {
-    res_headers.set(h[0], h[1])
+    let [k, v] = h
+    res_headers.set(k, v)
   })
 
   return new Response(res.body, {
