@@ -14,7 +14,7 @@ async function handle_request(request) {
       "X-Frame-Options": "DENY",
       "X-Content-Type-Options": "nosniff",
       "X-Xss-Protection": "1; mode=block",
-      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Referrer-Policy": "no-referrer",
       "Permissions-Policy": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()",
       "Content-Security-Policy": "default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; media-src 'none'; object-src 'none'; child-src 'none'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; base-uri https://aliaskura.xyz; manifest-src 'none';",
       "X-Clacks-Overhead": "GNU Terry Pratchett",

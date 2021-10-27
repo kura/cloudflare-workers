@@ -58,7 +58,7 @@ const new_headers = [
   // ["Expect-CT", "max-age=3600, report-uri='https://kuragg.report-uri.com/r/d/ct/enforce'"],
   // ["NEL", "{'report_to': 'default', 'max_age': 31536000, 'include_subdomains': true}"],
   ["Permissions-Policy", privacy_policy],
-  ["Referrer-Policy", "strict-origin-when-cross-origin"],
+  ["Referrer-Policy", "no-referrer"],
   // ["Report-To", report_uri],
   ["X-Frame-Options", "DENY"],
   ["X-Content-Type-Options", "nosniff"],
