@@ -21,7 +21,7 @@ const content_security_policy = [
   "font-src 'self';",
   "connect-src 'none';",
   "media-src 'self';",
-  "object-src 'self' player.vimeo.com;",
+  "object-src 'none';",
   "child-src www.youtube.com player.vimeo.com;",
   "frame-ancestors 'none';",
   "form-action 'none';",
