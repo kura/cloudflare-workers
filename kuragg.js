@@ -14,7 +14,7 @@ const remove_headers = [
 ]
 
 const content_security_policy = [
-  "default-src 'self';",
+  "default-src 'none';",
   "script-src 'self' gist.github.com 'nonce-REPLACEMENT_NONCE';",
   "style-src 'self' assets-cdn.github.com 'nonce-REPLACEMENT_NONCE';",
   "img-src 'self' img.shields.io;",
