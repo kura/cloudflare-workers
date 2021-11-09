@@ -46,7 +46,7 @@ const privacy_policy = [
 // ].join(" ")
 
 const new_headers = [
-  ["Access-Control-Allow-Headers", "Origin,Range,Accept-Encoding,Referer"],
+  ["Access-Control-Allow-Headers", "Origin,Range,Accept-Encoding"],
   ["Access-Control-Expose-Headers", "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location"],
   ["Access-Control-Allow-Methods", "GET,HEAD"],
   ["Access-Control-Allow-Origin", "https://kura.gg"],
@@ -74,12 +74,11 @@ class AttributeRewriter {
     this.tag_name = tag_name
   }
   element(element) {
-    if (this.tag_name == "link") {
-      const attribute = element.getAttribute("rel")
-      if (attribute && attribute == "stylesheet") {
-        element.setAttribute("nonce", this.nonce)
-      }
-    } else {
+    const attribute = element.getAttribute("rel")
+    if (this.tag_name == "link" && (attribute && attribute == "stylesheet")) {
+      element.setAttribute("nonce", this.nonce)
+    }
+    if (this.tag_name == "script") {
       element.setAttribute("nonce", this.nonce)
     }
   }
@@ -90,6 +89,10 @@ async function handle_req(request) {
 
   if (url.pathname == "/blackhole" || url.pathname == "/blackhole/") {
     return Response.redirect("https://kura.gg/blackhole/index.html", 301)
+  }
+
+  if (url.pathname == "/software" || url.pathname == "/software/" || url.pathname == "/software/index.html") {
+    return Response.redirect("https://kura.gg/pelican-plugins", 302)
   }
 
   let req_url = url
@@ -122,8 +125,21 @@ async function handle_req(request) {
     res_headers.set(k, v.replaceAll("nonce-REPLACEMENT_NONCE", "nonce-" + nonce))
   })
 
+  let new_status = res.status
+  if (url.pathname == "/404.html" || url.pathname == "/500.html") {
+    res_headers.set("X-Robots-Tag", "noindex")
+    if (url.pathname == "/404.html") {
+      new_status = 404
+    }
+    if (url.pathname == "/500.html") {
+      new_status = 500
+    }
+  }
+
+
+
   return new Response(new_res.body, {
-    status: res.status,
+    status: new_status,
     statusText: res.statusText,
     headers: res_headers
   })
