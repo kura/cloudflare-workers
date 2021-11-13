@@ -126,16 +126,17 @@ async function handle_req(request) {
   })
 
   let new_status = res.status
-  if (url.pathname == "/404.html" || url.pathname == "/404" || url.pathname == "/500.html" || url.pathname == "/500") {
+  let error_uris = ["/404.html", "/404", "/500.html", "/500"]
+  if (error_uris.includes(url.pathname.toLowerCase())) {
     res_headers.set("X-Robots-Tag", "noindex")
-    if (url.pathname == "/404.html" || url.pathname == "/404") {
+
+    if (["/404", "/404.html"].includes(url.pathname.toLowerCase())) {
       new_status = 404
     }
-    if (url.pathname == "/500.html" || url.pathname == "/500") {
+    if (["/500", "/500.html"].includes(url.pathname.toLowerCase())) {
       new_status = 500
     }
   }
-
 
   return new Response(new_res.body, {
     status: new_status,
