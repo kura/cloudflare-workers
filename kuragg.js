@@ -101,6 +101,10 @@ async function handle_req(request) {
     return Response.redirect("https://kura.gg/blackhole/index.html", 301)
   }
 
+  if (url.pathname == "/cv" || url.pathname == "/cv/" || url.pathname == "/résumé" || url.pathname == "/résumé/" || url.pathname == "/r%C3%A9sum%C3%A9" || url.pathname == "/r%C3%A9sum%C3%A9/") {
+    return Response.redirect("https://kura.gg/curriculum-vitae/", 301)
+  }
+
   if (url.pathname == "/software" || url.pathname == "/software/" || url.pathname == "/software/index.html") {
     return Response.redirect("https://kura.gg/pelican-plugins", 302)
   }
