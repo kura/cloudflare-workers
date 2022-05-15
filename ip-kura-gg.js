@@ -29,6 +29,7 @@ async function handle_request(request) {
       "Access-Control-Allow-Methods": "GET,HEAD",
       "Access-Control-Allow-Origin": "https://ip.kura.gg",
       "Access-Control-Max-Age": "86400",
+      "Cache-Control": "no-store",
       "X-Frame-Options": "DENY",
       "X-Content-Type-Options": "nosniff",
       "X-Xss-Protection": "1; mode=block",
