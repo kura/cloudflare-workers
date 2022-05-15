@@ -17,8 +17,10 @@ const privacy_policy = [
 
 async function handle_request(request) {
   let picked_pokemon = pokemon[(Math.random() * pokemon.length | 0)]
+  let ip = request.headers.get('cf-connecting-ip');
 
-  return new Response(picked_pokemon, {
+  body = picked_pokemon + "\n\n" + ip
+  return new Response(body, {
     headers: {
       "Content-Type": "text/plain; charset=UTF-8",
       "Access-Control-Allow-Headers": "Origin,Range,Accept-Encoding,Referer",
