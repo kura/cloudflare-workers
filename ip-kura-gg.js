@@ -17,14 +17,15 @@ const privacy_policy = [
 
 async function handle_request(request) {
   let picked_pokemon = pokemon[(Math.random() * pokemon.length | 0)]
+  let ip = request.headers.get('cf-connecting-ip');
 
-  return new Response(picked_pokemon, {
+  return new Response(ip, {
     headers: {
       "Content-Type": "text/plain; charset=UTF-8",
       "Access-Control-Allow-Headers": "Origin,Range,Accept-Encoding,Referer",
       "Access-Control-Expose-Headers": "Server,Range,Date,Content-Length,Content-Range,Content-Location,Location",
       "Access-Control-Allow-Methods": "GET,HEAD",
-      "Access-Control-Allow-Origin": "https://aliaskura.xyz",
+      "Access-Control-Allow-Origin": "https://ip.kura.gg",
       "Access-Control-Max-Age": "86400",
       "X-Frame-Options": "DENY",
       "X-Content-Type-Options": "nosniff",
