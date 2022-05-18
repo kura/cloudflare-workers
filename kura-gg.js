@@ -74,8 +74,8 @@ const new_headers = [
   // ["Report-To", report_uri],
   ["X-Frame-Options", "DENY"],
   ["X-Content-Type-Options", "nosniff"],
-  ["X-Xss-Protection", "1; mode=block"],
-  // ["X-Xss-Protection", "1; mode=block; report=https://kuragg.report-uri.com/r/d/xss/enforce"],
+  ["X-Xss-Protection", "1"],
+  // ["X-Xss-Protection", "1; report=https://kuragg.report-uri.com/r/d/xss/enforce"],
   ["X-Clacks-Overhead", "GNU Terry Pratchett"],
   ["X-Pokemon", pokemon[(Math.random() * pokemon.length | 0)]]
 ]

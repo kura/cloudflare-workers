@@ -30,7 +30,7 @@ async function handle_request(request) {
       "Access-Control-Max-Age": "86400",
       "X-Frame-Options": "DENY",
       "X-Content-Type-Options": "nosniff",
-      "X-Xss-Protection": "1; mode=block",
+      "X-Xss-Protection": "1",
       "Referrer-Policy": "no-referrer",
       "Permissions-Policy": privacy_policy,
       "Content-Security-Policy": "default-src 'none'; script-src 'none'; style-src 'none'; img-src 'none'; font-src 'none'; connect-src 'none'; media-src 'none'; object-src 'none'; child-src 'none'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests; base-uri https://aliaskura.xyz; manifest-src 'none';",
