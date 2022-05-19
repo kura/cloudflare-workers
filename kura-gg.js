@@ -73,6 +73,7 @@ const new_headers = [
   ["Referrer-Policy", "no-referrer"],
   // ["Report-To", report_uri],
   ["X-Frame-Options", "DENY"],
+  ["X-Xss-Protection", "0"],
   ["X-Content-Type-Options", "nosniff"],
   ["X-Clacks-Overhead", "GNU Terry Pratchett"],
   ["X-Pokemon", pokemon[(Math.random() * pokemon.length | 0)]]
