@@ -138,6 +138,12 @@ async function handle_req(request) {
     let [k, v] = h
     res_headers.delete(k)
     res_headers.set(k, v.replaceAll("nonce-REPLACEMENT_NONCE", "nonce-" + nonce))
+
+    if (url.pathname.startsWith("/blackhole")) {
+      res_headers.set("Link", "</blackhole/_static/documentation_options.js>; rel=preload; as=script, </blackhole/_static/jquery.js>; rel=preload; as=script, </blackhole/_static/underscore.js>; rel=preload; as=script, </blackhole/_static/doctools.js>; rel=preload; as=script, </blackhole/_static/js/bootstrap.js>; rel=preload; as=script, </blackhole/_static/fonts/open-sans/stylesheet.css>; rel=preload; as=style, </blackhole/_static/fonts/source-serif-pro/source-serif-pro.css>; rel=preload; as=style, </blackhole/_static/css/bootstrap.min.css>; rel=preload; as=style, </blackhole/_static/css/bootstrap-theme.min.css>; rel=preload; as=style, </blackhole/_static/pygments.css>; rel=preload; as=style, </blackhole/_static/blackhole.css>; rel=preload; as=style, </blackhole/_static/fonts/source-serif-pro/WOFF/OTF/SourceSerifPro-Regular.otf.woff>; rel=preload; as=font, </blackhole/_static/fonts/open-sans/fonts/OpenSans-Bold-webfont.woff>; rel=preload; as=font, </blackhole/_static/fonts/open-sans/fonts/OpenSans-Regular-webfont.woff>; rel=preload; as=font")
+    } else {
+      res_headers.set("Link", "</theme/css/eevee.min.css>; rel=preload; as=style, </theme/js/eevee.min.js>; rel=preload; as=script, </theme/fonts/firasans-regular.woff2>; rel=preload; as=font, </theme/fonts/materialicons-regular.woff2>; rel=preload; as=font, </theme/fonts/firamono-regular.woff2>; rel=preload; as=font, </theme/fonts/firasans-bold.woff2>; rel=preload; as=font, </theme/fonts/fontawesome.woff2>; rel=preload; as=font")
+    }
   })
 
   let new_status = res.status
