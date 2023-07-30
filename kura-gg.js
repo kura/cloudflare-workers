@@ -18,7 +18,7 @@ const remove_headers = [
 const content_security_policy = [
   "default-src 'none';",
   "script-src 'self' gist.github.com 'nonce-REPLACEMENT_NONCE';",
-  "style-src 'self' assets-cdn.github.com 'nonce-REPLACEMENT_NONCE' 'sha256-G18qxziyogiUgWMaq2umahGmBufseENTGCdOtzwXUKM=';",
+  "style-src 'self' assets-cdn.github.com 'nonce-REPLACEMENT_NONCE' 'sha256-mAXZnIq8sghZ4KNsjSuqwTyVj2ly+bN2pB6EQd5+Yf4='",
   "img-src 'self' img.shields.io;",
   "font-src 'self';",
   "connect-src 'none';",
